@@ -6,6 +6,7 @@ using System.Threading;
 
 namespace M05_UF3_P3_Frogger
 {
+    // función de contador basicamente (gestión del tiempo y contador d frames)
     public static class TimeManager
     {
         public static uint frameCount { get; private set; }

@@ -6,17 +6,20 @@ namespace M05_UF3_P3_Frogger
 {
     public class Lane
     {
+        // velocidad de los elementos, del player, "enemigos" (realmente elementos d daño) y el color de la consola
         public readonly int posY;
         public readonly int speedElements;
         public readonly bool speedPlayer;
         public readonly ConsoleColor background;
         public readonly bool damageElements;
         public readonly bool damageBackground;
+
         public List<DynamicElement> elements { get; protected set; } = new List<DynamicElement>();
 
 
         public Lane(int posY, bool speedPlayer, ConsoleColor background, bool damageElements, bool damageBackground, float elementsPercent, char elementsChar, List<ConsoleColor> colorsElements)
         {
+            // movimiento de los elementos por consola y mapa
             this.posY = posY;
             this.speedElements = Utils.rnd.Next(-10, 10) < 0 ? 1 : -1;
             this.speedPlayer = speedPlayer;
@@ -40,6 +43,7 @@ namespace M05_UF3_P3_Frogger
             this.elements.TrimExcess();
         }
 
+        // posición del cursor ??
         public void Draw()
         {
             Console.SetCursorPosition(0, posY);
@@ -58,6 +62,7 @@ namespace M05_UF3_P3_Frogger
                 }
             }
         }
+        //actualiza los elementos en pantalla
         public void Update()
         {
             foreach (DynamicElement element in elements)

@@ -6,6 +6,7 @@ namespace M05_UF3_P3_Frogger
 {
     public class Vector2Int
     {
+        //posición d un objeto
         public int x;
         public int y;
         public Vector2Int(int x = 0, int y = 0) { this.x = x; this.y = y; }
@@ -36,6 +37,7 @@ namespace M05_UF3_P3_Frogger
     }
     public static class Utils
     {
+        // color de elementos, configuración del mapa
         public static Random rnd = new Random();
         public const int MAP_WIDTH = 20;
         public static int MAP_HEIGHT = 13;
@@ -45,10 +47,12 @@ namespace M05_UF3_P3_Frogger
         public const char charLogs = '=';
         public static readonly ConsoleColor[] colorsLogs = { ConsoleColor.DarkYellow, ConsoleColor.Yellow};
 
+        // estado del videojuego
         public enum GAME_STATE { RUNNING, WIN, LOOSE };
 
         public static Vector2Int Input()
         {
+            // teclas de movimiento
             if(Console.KeyAvailable)
             {
                 ConsoleKeyInfo key = Console.ReadKey();

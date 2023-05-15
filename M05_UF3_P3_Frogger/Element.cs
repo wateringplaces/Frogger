@@ -5,6 +5,7 @@ namespace M05_UF3_P3_Frogger
 {
     public abstract class Element
     {
+        //posición y draw en consola
         public Vector2Int pos { get; protected set; }
         public char character { get; protected set; }
         public readonly ConsoleColor foreground;
@@ -16,6 +17,7 @@ namespace M05_UF3_P3_Frogger
             this.foreground = foreground;
         }
 
+        // draw en pantalla del elemento y color del background
         public virtual void Draw()
         {
             Console.SetCursorPosition(pos.x, pos.y);
@@ -32,7 +34,7 @@ namespace M05_UF3_P3_Frogger
 
     public class DynamicElement : Element
     {
-
+        // velocidad y posición
         public Vector2Int speed { get; protected set; }
         public DynamicElement(Vector2Int speed, Vector2Int pos, char character = ' ', ConsoleColor foreground = ConsoleColor.White) : base(pos, character, foreground)
         {
@@ -68,6 +70,7 @@ namespace M05_UF3_P3_Frogger
 
     public class Player : DynamicElement
     {
+        // configuración del player (icono, color, lugar de spawn)
         public const char characterForward = '╧';
         public const char characterBackwards = '╤';
         public const char characterLeft = '╢';
@@ -79,6 +82,7 @@ namespace M05_UF3_P3_Frogger
 
         public Utils.GAME_STATE Update(Vector2Int dir, List<Lane> lanes)
         {
+            //movimiento del player y velocidad
             speed = dir;
 
             if(dir.y < 0)
@@ -90,6 +94,7 @@ namespace M05_UF3_P3_Frogger
             else if (dir.x < 0)
             { character = characterLeft; }
 
+            // estado del juego. el jugador gana si:
             pos += speed;
             if (pos.y <= 0)
             {
@@ -114,6 +119,8 @@ namespace M05_UF3_P3_Frogger
                     {
                         pos.x = Utils.MAP_WIDTH - 1;
                     }
+
+                    // el jugador pierde si:
                     if (lane.ElementAtPosition(pos) == null)
                     {
                         if (lane.damageBackground)
@@ -125,6 +132,7 @@ namespace M05_UF3_P3_Frogger
                             return Utils.GAME_STATE.RUNNING;
                         }
                     }
+                    // o si:
                     else
                     {
                         if (lane.damageElements)
@@ -141,6 +149,7 @@ namespace M05_UF3_P3_Frogger
             return Utils.GAME_STATE.RUNNING;
         }
 
+        // draw y color del background
         public void Draw(List<Lane> lanes)
         {
             foreach (Lane lane in lanes)
